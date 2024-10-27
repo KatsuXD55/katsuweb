@@ -1,0 +1,15 @@
+{
+  "name": "photo-upload-app",
+  "version": "1.0.0",
+  "main": "api/upload.js",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "formidable": "^1.2.1",
+    "mongoose": "^5.10.9"
+  },
+  "engines": {
+    "node": "16.x"
+  }
+}
