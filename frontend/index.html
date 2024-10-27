@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Photo</title>
+</head>
+<body>
+    <h1>Upload Photo</h1>
+    <form id="uploadForm">
+        <input type="file" id="photo" required>
+        <button type="submit">Upload</button>
+    </form>
+    <div id="photos"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData();
+            formData.append('photo', document.getElementById('photo').files[0]);
+
+            fetch('http://localhost:5000/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const img = document.createElement('img');
+                img.src = data.url;
+                img.style.maxWidth = '200px'; // Set width untuk tampilan
+                document.getElementById('photos').appendChild(img);
+            })
+            .catch(error => {
+                alert(error.message); // Menampilkan pesan kesalahan kepada pengguna
+            });
+        });
+    </script>
+</body>
+</html>
